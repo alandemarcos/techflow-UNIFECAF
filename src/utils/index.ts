@@ -7,3 +7,13 @@ export {
   getEmptyTaskForm,
   taskToFormData,
 } from '@/utils/task'
+
+export {
+  filterTasksBySearch,
+  filterTasksByFilters,
+  sortTasks,
+  computeTaskListStats,
+  getUniqueResponsibles,
+  hasActiveFilters,
+  hasActiveSearch,
+} from '@/utils/task-list'

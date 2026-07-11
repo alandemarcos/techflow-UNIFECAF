@@ -2,6 +2,7 @@ import type { Task } from '@/types/task'
 import { Pencil, Trash2 } from 'lucide-react'
 import TaskPriorityBadge from '@/components/tasks/TaskPriorityBadge'
 import TaskStatusBadge from '@/components/tasks/TaskStatusBadge'
+import TaskPagination from '@/components/tasks/TaskPagination'
 import { formatDate } from '@/utils/date'
 import { Button } from '@/components/ui/button'
 import {
@@ -25,26 +26,46 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 
-interface TaskTableProps {
-  tasks: Task[]
-  onEdit: (task: Task) => void
-  onDelete: (task: Task) => void
+interface TaskPaginationState {
+  currentPage: number
+  totalPages: number
+  totalItems: number
+  pageSize: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  onPageChange: (page: number) => void
+  onNextPage: () => void
+  onPreviousPage: () => void
 }
 
-function TaskTable({ tasks, onEdit, onDelete }: TaskTableProps) {
+interface TaskTableProps {
+  tasks: Task[]
+  totalFiltered: number
+  onEdit: (task: Task) => void
+  onDelete: (task: Task) => void
+  pagination: TaskPaginationState
+}
+
+function TaskTable({
+  tasks,
+  totalFiltered,
+  onEdit,
+  onDelete,
+  pagination,
+}: TaskTableProps) {
   return (
-    <Card className="shadow-sm">
+    <Card className="overflow-hidden shadow-sm transition-shadow hover:shadow-md">
       <CardHeader>
         <CardTitle>Tarefas cadastradas</CardTitle>
         <CardDescription>
-          {tasks.length}{' '}
-          {tasks.length === 1 ? 'tarefa encontrada' : 'tarefas encontradas'}
+          {totalFiltered}{' '}
+          {totalFiltered === 1 ? 'tarefa encontrada' : 'tarefas encontradas'}
         </CardDescription>
       </CardHeader>
       <CardContent className="px-0 pb-0">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="hover:bg-transparent">
               <TableHead className="pl-6">Título</TableHead>
               <TableHead>Responsável</TableHead>
               <TableHead>Prioridade</TableHead>
@@ -55,9 +76,24 @@ function TaskTable({ tasks, onEdit, onDelete }: TaskTableProps) {
           </TableHeader>
           <TableBody>
             {tasks.map((task) => (
-              <TableRow key={task.id}>
-                <TableCell className="max-w-[220px] truncate pl-6 font-medium">
-                  {task.title}
+              <TableRow
+                key={task.id}
+                className="transition-colors duration-200 hover:bg-muted/50"
+              >
+                <TableCell className="max-w-[220px] pl-6 font-medium">
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <span className="block truncate">{task.title}</span>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs">
+                      <p className="font-medium">{task.title}</p>
+                      {task.description && (
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {task.description}
+                        </p>
+                      )}
+                    </TooltipContent>
+                  </Tooltip>
                 </TableCell>
                 <TableCell className="text-muted-foreground">
                   {task.responsible}
@@ -107,6 +143,8 @@ function TaskTable({ tasks, onEdit, onDelete }: TaskTableProps) {
             ))}
           </TableBody>
         </Table>
+
+        <TaskPagination {...pagination} />
       </CardContent>
     </Card>
   )

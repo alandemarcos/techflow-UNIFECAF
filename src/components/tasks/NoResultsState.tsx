@@ -1,4 +1,4 @@
-import { ClipboardList, Plus } from 'lucide-react'
+import { FilterX, SearchX } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -8,31 +8,31 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 
-interface EmptyStateProps {
-  onCreateTask: () => void
+interface NoResultsStateProps {
+  onClearFilters: () => void
 }
 
-function EmptyState({ onCreateTask }: EmptyStateProps) {
+function NoResultsState({ onClearFilters }: NoResultsStateProps) {
   return (
     <Card className="border-dashed shadow-sm animate-in fade-in-50 duration-300">
       <CardHeader className="items-center text-center">
         <div className="flex size-16 items-center justify-center rounded-full bg-muted">
-          <ClipboardList className="size-8 text-muted-foreground" />
+          <SearchX className="size-8 text-muted-foreground" />
         </div>
-        <CardTitle>Nenhuma tarefa cadastrada</CardTitle>
+        <CardTitle>Nenhuma tarefa encontrada.</CardTitle>
         <CardDescription className="max-w-sm">
-          Comece organizando seu fluxo de trabalho criando a primeira tarefa do
-          projeto.
+          Não há tarefas que correspondam aos filtros ou à pesquisa aplicada.
+          Tente ajustar os critérios ou limpar os filtros.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex justify-center pb-8">
-        <Button onClick={onCreateTask}>
-          <Plus className="size-4" />
-          Criar primeira tarefa
+        <Button variant="outline" onClick={onClearFilters}>
+          <FilterX className="size-4" />
+          Limpar filtros
         </Button>
       </CardContent>
     </Card>
   )
 }
 
-export default EmptyState
+export default NoResultsState

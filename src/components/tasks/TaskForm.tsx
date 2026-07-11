@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react'
 import type { Task, TaskFormData, TaskFormErrors } from '@/types/task'
-import { TASK_PRIORITIES, TASK_STATUSES } from '@/types/task'
+import {
+  DESCRIPTION_MAX_LENGTH,
+  TASK_PRIORITIES,
+  TASK_STATUSES,
+} from '@/types/task'
 import { getEmptyTaskForm, taskToFormData } from '@/utils/task'
 import { hasFormErrors, validateTaskForm } from '@/utils/validation'
+import { getTodayDateString } from '@/utils/date'
+import RequiredLabel from '@/components/tasks/RequiredLabel'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -22,6 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { cn } from '@/lib/utils'
 
 interface TaskFormProps {
   open: boolean
@@ -53,7 +60,9 @@ function TaskForm({ open, onOpenChange, task, onSubmit }: TaskFormProps) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const validationErrors = validateTaskForm(formData)
+    const validationErrors = validateTaskForm(formData, {
+      originalDueDate: task?.dueDate,
+    })
     setErrors(validationErrors)
 
     if (hasFormErrors(validationErrors)) return
@@ -61,6 +70,9 @@ function TaskForm({ open, onOpenChange, task, onSubmit }: TaskFormProps) {
     onSubmit(formData)
     onOpenChange(false)
   }
+
+  const descriptionLength = formData.description.length
+  const isDescriptionNearLimit = descriptionLength > DESCRIPTION_MAX_LENGTH * 0.9
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -78,13 +90,14 @@ function TaskForm({ open, onOpenChange, task, onSubmit }: TaskFormProps) {
 
         <form id="task-form" onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="title">Título</Label>
+            <RequiredLabel htmlFor="title">Título</RequiredLabel>
             <Input
               id="title"
               value={formData.title}
               onChange={(event) => updateField('title', event.target.value)}
               placeholder="Ex: Revisar documentação"
               aria-invalid={Boolean(errors.title)}
+              aria-required="true"
             />
             {errors.title && (
               <p className="text-sm text-destructive">{errors.title}</p>
@@ -101,11 +114,30 @@ function TaskForm({ open, onOpenChange, task, onSubmit }: TaskFormProps) {
               }
               placeholder="Descreva os detalhes da tarefa..."
               rows={3}
+              maxLength={DESCRIPTION_MAX_LENGTH}
+              aria-invalid={Boolean(errors.description)}
             />
+            <div className="flex items-center justify-between gap-2">
+              {errors.description ? (
+                <p className="text-sm text-destructive">{errors.description}</p>
+              ) : (
+                <span />
+              )}
+              <p
+                className={cn(
+                  'text-xs text-muted-foreground',
+                  isDescriptionNearLimit && 'text-amber-600 dark:text-amber-400',
+                  descriptionLength >= DESCRIPTION_MAX_LENGTH &&
+                    'text-destructive',
+                )}
+              >
+                {descriptionLength}/{DESCRIPTION_MAX_LENGTH}
+              </p>
+            </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="responsible">Responsável</Label>
+            <RequiredLabel htmlFor="responsible">Responsável</RequiredLabel>
             <Input
               id="responsible"
               value={formData.responsible}
@@ -114,6 +146,7 @@ function TaskForm({ open, onOpenChange, task, onSubmit }: TaskFormProps) {
               }
               placeholder="Ex: Ana Silva"
               aria-invalid={Boolean(errors.responsible)}
+              aria-required="true"
             />
             {errors.responsible && (
               <p className="text-sm text-destructive">{errors.responsible}</p>
@@ -165,13 +198,15 @@ function TaskForm({ open, onOpenChange, task, onSubmit }: TaskFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="dueDate">Data limite</Label>
+            <RequiredLabel htmlFor="dueDate">Data limite</RequiredLabel>
             <Input
               id="dueDate"
               type="date"
               value={formData.dueDate}
+              min={getTodayDateString()}
               onChange={(event) => updateField('dueDate', event.target.value)}
               aria-invalid={Boolean(errors.dueDate)}
+              aria-required="true"
             />
             {errors.dueDate && (
               <p className="text-sm text-destructive">{errors.dueDate}</p>

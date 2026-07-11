@@ -15,6 +15,7 @@ interface TaskStats {
   inProgress: number
   completed: number
   pending: number
+  highPriority: number
 }
 
 interface TasksContextValue {
@@ -34,6 +35,7 @@ function computeStats(tasks: Task[]): TaskStats {
     inProgress: tasks.filter((task) => task.status === 'In Progress').length,
     completed: tasks.filter((task) => task.status === 'Done').length,
     pending: tasks.filter((task) => task.status === 'To Do').length,
+    highPriority: tasks.filter((task) => task.priority === 'High').length,
   }
 }
 
