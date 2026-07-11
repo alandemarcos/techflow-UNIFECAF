@@ -3,21 +3,17 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
 const statusConfig: Record<TaskStatus, { label: string; className: string }> = {
-  pendente: {
-    label: 'Pendente',
-    className: 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
-  },
-  em_andamento: {
-    label: 'Em andamento',
-    className: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-  },
-  concluida: {
-    label: 'Concluída',
-    className: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
-  },
-  cancelada: {
-    label: 'Cancelada',
+  'To Do': {
+    label: 'To Do',
     className: 'bg-slate-500/10 text-slate-600 dark:text-slate-400',
+  },
+  'In Progress': {
+    label: 'In Progress',
+    className: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+  },
+  Done: {
+    label: 'Done',
+    className: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
   },
 }
 

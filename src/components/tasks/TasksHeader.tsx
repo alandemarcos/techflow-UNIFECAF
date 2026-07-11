@@ -1,7 +1,11 @@
 import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-function TasksHeader() {
+interface TasksHeaderProps {
+  onCreateTask: () => void
+}
+
+function TasksHeader({ onCreateTask }: TasksHeaderProps) {
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
@@ -9,7 +13,7 @@ function TasksHeader() {
           Visualize e gerencie todas as tarefas do projeto.
         </p>
       </div>
-      <Button>
+      <Button onClick={onCreateTask}>
         <Plus className="size-4" />
         Nova tarefa
       </Button>

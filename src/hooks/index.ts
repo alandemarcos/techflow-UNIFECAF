@@ -1,3 +1,1 @@
-// Hooks customizados serão adicionados nas próximas sprints.
-
-export {}
+export { TasksProvider, useTasks } from '@/hooks/useTasks'
