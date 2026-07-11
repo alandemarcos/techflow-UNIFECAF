@@ -14,6 +14,8 @@ import TaskForm from '@/components/tasks/TaskForm'
 import DeleteDialog from '@/components/tasks/DeleteDialog'
 import EmptyState from '@/components/tasks/EmptyState'
 import NoResultsState from '@/components/tasks/NoResultsState'
+import ViewSwitcher, { type TaskViewMode } from '@/components/kanban/ViewSwitcher'
+import KanbanBoard from '@/components/kanban/KanbanBoard'
 import {
   Card,
   CardContent,
@@ -23,8 +25,9 @@ import {
 import { ArrowUpDown } from 'lucide-react'
 
 function Tasks() {
-  const { tasks, addTask, updateTask, deleteTask } = useTasks()
+  const { tasks, addTask, updateTask, updateTaskStatus, deleteTask } = useTasks()
   const taskList = useTaskList(tasks)
+  const [view, setView] = useState<TaskViewMode>('list')
   const [formOpen, setFormOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [selectedTask, setSelectedTask] = useState<Task | null>(null)
@@ -66,6 +69,12 @@ function Tasks() {
       <div className="flex flex-col gap-6">
         <TasksHeader onCreateTask={handleCreateTask} />
 
+        {tasks.length > 0 && (
+          <div className="flex justify-end">
+            <ViewSwitcher view={view} onViewChange={setView} />
+          </div>
+        )}
+
         {tasks.length === 0 ? (
           <EmptyState onCreateTask={handleCreateTask} />
         ) : (
@@ -92,26 +101,28 @@ function Tasks() {
               }
             />
 
-            <Card className="shadow-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <ArrowUpDown className="size-4 text-muted-foreground" />
-                  Ordenação
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TaskSortControls
-                  sortField={taskList.sort.sort.field}
-                  sortDirection={taskList.sort.sort.direction}
-                  onSortFieldChange={taskList.sort.updateSortField}
-                  onSortDirectionChange={taskList.sort.updateSortDirection}
-                />
-              </CardContent>
-            </Card>
+            {view === 'list' && (
+              <Card className="shadow-sm">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <ArrowUpDown className="size-4 text-muted-foreground" />
+                    Ordenação
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <TaskSortControls
+                    sortField={taskList.sort.sort.field}
+                    sortDirection={taskList.sort.sort.direction}
+                    onSortFieldChange={taskList.sort.updateSortField}
+                    onSortDirectionChange={taskList.sort.updateSortDirection}
+                  />
+                </CardContent>
+              </Card>
+            )}
 
             {taskList.hasNoResults ? (
               <NoResultsState onClearFilters={taskList.clearAllFilters} />
-            ) : (
+            ) : view === 'list' ? (
               <TaskTable
                 tasks={taskList.paginatedTasks}
                 totalFiltered={taskList.filteredTasks.length}
@@ -128,6 +139,13 @@ function Tasks() {
                   onNextPage: taskList.pagination.goToNextPage,
                   onPreviousPage: taskList.pagination.goToPreviousPage,
                 }}
+              />
+            ) : (
+              <KanbanBoard
+                tasks={taskList.filteredTasks}
+                onStatusChange={updateTaskStatus}
+                onEdit={handleEditTask}
+                onDelete={handleDeleteTask}
               />
             )}
           </div>

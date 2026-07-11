@@ -1,4 +1,4 @@
-import type { Task, TaskFormData } from '@/types/task'
+import type { Task, TaskFormData, TaskStatus } from '@/types/task'
 
 export function createTaskId() {
   return crypto.randomUUID()
@@ -38,6 +38,10 @@ export function getEmptyTaskForm(): TaskFormData {
     status: 'To Do',
     dueDate: '',
   }
+}
+
+export function updateTaskStatus(task: Task, status: TaskStatus): Task {
+  return { ...task, status }
 }
 
 export function taskToFormData(task: Task): TaskFormData {

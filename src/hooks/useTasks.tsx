@@ -6,9 +6,13 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import type { Task, TaskFormData } from '@/types/task'
+import type { Task, TaskFormData, TaskStatus } from '@/types/task'
 import { INITIAL_TASKS } from '@/data/initial-tasks'
-import { createTaskFromForm, updateTaskFromForm } from '@/utils/task'
+import {
+  createTaskFromForm,
+  updateTaskFromForm,
+  updateTaskStatus as applyTaskStatus,
+} from '@/utils/task'
 
 interface TaskStats {
   total: number
@@ -23,6 +27,7 @@ interface TasksContextValue {
   stats: TaskStats
   addTask: (data: TaskFormData) => void
   updateTask: (id: string, data: TaskFormData) => void
+  updateTaskStatus: (id: string, status: TaskStatus) => void
   deleteTask: (id: string) => void
   getTaskById: (id: string) => Task | undefined
 }
@@ -60,6 +65,14 @@ export function TasksProvider({ children }: TasksProviderProps) {
     )
   }, [])
 
+  const updateTaskStatus = useCallback((id: string, status: TaskStatus) => {
+    setTasks((current) =>
+      current.map((task) =>
+        task.id === id ? applyTaskStatus(task, status) : task,
+      ),
+    )
+  }, [])
+
   const deleteTask = useCallback((id: string) => {
     setTasks((current) => current.filter((task) => task.id !== id))
   }, [])
@@ -75,10 +88,11 @@ export function TasksProvider({ children }: TasksProviderProps) {
       stats,
       addTask,
       updateTask,
+      updateTaskStatus,
       deleteTask,
       getTaskById,
     }),
-    [tasks, stats, addTask, updateTask, deleteTask, getTaskById],
+    [tasks, stats, addTask, updateTask, updateTaskStatus, deleteTask, getTaskById],
   )
 
   return (
