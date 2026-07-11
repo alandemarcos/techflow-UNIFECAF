@@ -1,30 +1,33 @@
-import { Bell, User } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
+import { PAGE_TITLES } from '@/constants/navigation'
+import SearchInput from '@/components/layout/SearchInput'
+import ThemeToggle from '@/components/layout/ThemeToggle'
+import UserMenu from '@/components/layout/UserMenu'
+import { MobileMenuButton } from '@/components/layout/MobileSidebar'
+import { Separator } from '@/components/ui/separator'
 
 function Topbar() {
+  const { pathname } = useLocation()
+  const pageTitle = PAGE_TITLES[pathname] ?? 'TaskFlow'
+
   return (
-    <header className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-background px-6">
-      <div>
-        <p className="text-sm font-medium">TaskFlow</p>
-        <p className="text-xs text-muted-foreground">
-          Gerenciamento de tarefas
-        </p>
+    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-4 border-b border-border bg-background/95 px-4 shadow-sm backdrop-blur supports-backdrop-filter:bg-background/80 sm:px-6">
+      <MobileMenuButton />
+
+      <div className="min-w-0 flex-1">
+        <h1 className="truncate text-lg font-semibold tracking-tight">
+          {pageTitle}
+        </h1>
       </div>
 
-      <div className="flex items-center gap-2">
-        <button
-          type="button"
-          className="inline-flex size-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-          aria-label="Notificações"
-        >
-          <Bell className="size-4" />
-        </button>
-        <button
-          type="button"
-          className="inline-flex size-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-          aria-label="Perfil do usuário"
-        >
-          <User className="size-4" />
-        </button>
+      <div className="hidden flex-1 justify-center lg:flex">
+        <SearchInput />
+      </div>
+
+      <div className="flex items-center gap-1">
+        <ThemeToggle />
+        <Separator orientation="vertical" className="mx-1 hidden h-6 sm:block" />
+        <UserMenu />
       </div>
     </header>
   )
