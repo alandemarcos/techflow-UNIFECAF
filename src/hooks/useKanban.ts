@@ -44,7 +44,7 @@ export const KANBAN_COLUMNS: KanbanColumnConfig[] = [
   },
 ]
 
-export type KanbanColumnsMap = Record<TaskStatus, Task[]>
+type KanbanColumnsMap = Record<TaskStatus, Task[]>
 
 interface UseKanbanOptions {
   tasks: Task[]

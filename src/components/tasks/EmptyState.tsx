@@ -1,12 +1,6 @@
 import { ClipboardList, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import EmptyStateCard from '@/components/tasks/EmptyStateCard'
 
 interface EmptyStateProps {
   onCreateTask: () => void
@@ -14,24 +8,17 @@ interface EmptyStateProps {
 
 function EmptyState({ onCreateTask }: EmptyStateProps) {
   return (
-    <Card className="border-dashed shadow-sm animate-in fade-in-50 duration-300">
-      <CardHeader className="items-center text-center">
-        <div className="flex size-16 items-center justify-center rounded-full bg-muted">
-          <ClipboardList className="size-8 text-muted-foreground" />
-        </div>
-        <CardTitle>Nenhuma tarefa cadastrada</CardTitle>
-        <CardDescription className="max-w-sm">
-          Comece organizando seu fluxo de trabalho criando a primeira tarefa do
-          projeto.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex justify-center pb-8">
+    <EmptyStateCard
+      icon={ClipboardList}
+      title="Nenhuma tarefa cadastrada"
+      description="Comece organizando seu fluxo de trabalho criando a primeira tarefa do projeto."
+      action={
         <Button onClick={onCreateTask}>
-          <Plus className="size-4" />
+          <Plus className="size-4" aria-hidden />
           Criar primeira tarefa
         </Button>
-      </CardContent>
-    </Card>
+      }
+    />
   )
 }
 

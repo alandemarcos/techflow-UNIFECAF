@@ -58,11 +58,12 @@ describe('useTaskSort', () => {
     expect(result.current.sort.direction).toBe('asc')
   })
 
-  it('setSort permite definir ordenação completa', () => {
+  it('updateSortField e updateSortDirection definem ordenação completa', () => {
     const { result } = renderHook(() => useTaskSort())
 
     act(() => {
-      result.current.setSort({ field: 'status', direction: 'desc' })
+      result.current.updateSortField('status')
+      result.current.updateSortDirection('desc')
     })
 
     expect(result.current.sort).toEqual({ field: 'status', direction: 'desc' })

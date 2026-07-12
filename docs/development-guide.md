@@ -170,3 +170,4 @@ refactor: extrai lógica de paginação para hook
 - [testing.md](testing.md) — estratégia de testes
 - [continuous-integration.md](continuous-integration.md) — pipeline CI
 - [change-management.md](change-management.md) — gestão de mudanças
+- [kanban.md](kanban.md) — metodologia e sprints do projeto

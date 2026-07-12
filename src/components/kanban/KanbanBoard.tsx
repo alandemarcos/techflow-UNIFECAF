@@ -1,8 +1,6 @@
 import {
   DndContext,
   DragOverlay,
-  type DragEndEvent,
-  type DragStartEvent,
 } from '@dnd-kit/core'
 import type { Task, TaskStatus } from '@/types/task'
 import { useKanban, KANBAN_COLUMNS } from '@/hooks/useKanban'
@@ -36,12 +34,16 @@ function KanbanBoard({
     <DndContext
       sensors={sensors}
       collisionDetection={collisionDetection}
-      onDragStart={handleDragStart as (event: DragStartEvent) => void}
-      onDragEnd={handleDragEnd as (event: DragEndEvent) => void}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
     >
       <div className="flex flex-col gap-4">
-        <div className="flex gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-3 lg:overflow-visible">
+        <div
+          className="flex gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-3 lg:overflow-visible"
+          role="region"
+          aria-label="Quadro Kanban"
+        >
           {KANBAN_COLUMNS.map((column) => (
             <KanbanColumn
               key={column.status}

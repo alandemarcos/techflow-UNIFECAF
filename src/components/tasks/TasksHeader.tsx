@@ -13,8 +13,8 @@ function TasksHeader({ onCreateTask }: TasksHeaderProps) {
           Visualize e gerencie todas as tarefas do projeto.
         </p>
       </div>
-      <Button onClick={onCreateTask}>
-        <Plus className="size-4" />
+      <Button onClick={onCreateTask} className="w-full sm:w-auto">
+        <Plus className="size-4" aria-hidden />
         Nova tarefa
       </Button>
     </div>

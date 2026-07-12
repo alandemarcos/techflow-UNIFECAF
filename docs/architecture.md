@@ -105,6 +105,8 @@ Estrutura visual da aplicação:
 | `TaskSortControls` | Controles de ordenação |
 | `TaskPagination` | Navegação entre páginas |
 | `DeleteDialog` | Confirmação de exclusão |
+| `EmptyState` / `NoResultsState` | Estados vazios da listagem |
+| `EmptyStateCard` | Layout compartilhado dos estados vazios |
 | `TaskStatusBadge` / `TaskPriorityBadge` | Indicadores visuais |
 
 ### Kanban (`components/kanban/`)

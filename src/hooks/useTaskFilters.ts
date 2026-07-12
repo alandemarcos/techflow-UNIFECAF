@@ -4,7 +4,6 @@ import { DEFAULT_TASK_FILTERS } from '@/types/task'
 import {
   filterTasksByFilters,
   getUniqueResponsibles,
-  hasActiveFilters,
 } from '@/utils/task-list'
 
 export function useTaskFilters(tasks: Task[]) {
@@ -31,15 +30,11 @@ export function useTaskFilters(tasks: Task[]) {
     setFilters(DEFAULT_TASK_FILTERS)
   }, [])
 
-  const isFiltered = useMemo(() => hasActiveFilters(filters), [filters])
-
   return {
     filters,
-    setFilters,
     updateFilter,
     applyFilters,
     resetFilters,
     responsibleOptions,
-    isFiltered,
   }
 }

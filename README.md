@@ -94,9 +94,11 @@ A aplicação estará disponível em `http://localhost:5173`.
 ### Outros comandos
 
 ```bash
+npm run lint         # Análise estática com Oxlint
 npm run build        # Gera build de produção
 npm run preview      # Visualiza o build localmente
 npm run type-check   # Verifica tipos TypeScript
+npm run coverage     # Executa testes com relatório de cobertura
 ```
 
 ## Como rodar os testes
@@ -177,7 +179,8 @@ O projeto foi desenvolvido de forma iterativa, com entregas incrementais organiz
 | **Sprint 3** | Quadro Kanban com drag-and-drop, filtros e busca |
 | **Sprint 4** | Testes automatizados, cobertura e Integração Contínua |
 | **Homologação** | Revisão de escopo com o cliente |
-| **Sprint 5** | Documentação técnica e preparação para entrega |
+| **Sprint 5** | Documentação técnica |
+| **Sprint Final** | Revisão de qualidade, padronização e preparação para entrega |
 
 O acompanhamento do backlog foi realizado via **GitHub Projects**, com cards organizados por colunas Kanban. Detalhes em [docs/kanban.md](docs/kanban.md).
 

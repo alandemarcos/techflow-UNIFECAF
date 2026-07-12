@@ -34,12 +34,15 @@ function StatCard({
             'flex size-9 items-center justify-center rounded-lg',
             iconClassName,
           )}
+          aria-hidden
         >
           <Icon className="size-4" />
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-3xl font-bold tracking-tight">{value}</p>
+        <p className="text-3xl font-bold tracking-tight" aria-label={`${title}: ${value}`}>
+          {value}
+        </p>
         <CardDescription className="mt-1">{description}</CardDescription>
       </CardContent>
     </Card>

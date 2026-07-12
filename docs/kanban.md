@@ -61,7 +61,8 @@ O projeto foi organizado em sprints com entregas incrementais:
 | **Sprint 3** | Kanban e filtros | Quadro visual, drag-and-drop, busca, filtros e ordenação |
 | **Sprint 4** | Qualidade | 139 testes automatizados, cobertura 80%, pipeline CI |
 | **Homologação** | Revisão de escopo | Remoção da página Configurações (ver [change-management.md](change-management.md)) |
-| **Sprint 5** | Documentação | Documentação técnica completa e preparação para entrega |
+| **Sprint 5** | Documentação | Documentação técnica completa |
+| **Sprint Final** | Entrega | Revisão de código, padronização, acessibilidade e validação final |
 
 ### Princípios ágeis aplicados
 
@@ -70,6 +71,7 @@ O projeto foi organizado em sprints com entregas incrementais:
 3. **Feedback contínuo** — homologação com o cliente antes da entrega final
 4. **Qualidade desde o início** — testes e CI integrados desde a Sprint 4
 5. **Documentação como entrega** — Sprint 5 dedicada à documentação técnica
+6. **Revisão final** — Sprint Final com foco em qualidade, padronização e estabilidade
 
 ## Organização do GitHub Projects
 

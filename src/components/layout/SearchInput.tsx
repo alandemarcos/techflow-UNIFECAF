@@ -11,6 +11,7 @@ function SearchInput() {
         className="h-9 bg-muted/40 pl-9"
         readOnly
         aria-label="Pesquisar"
+        title="Busca global disponível na página de tarefas"
       />
     </div>
   )

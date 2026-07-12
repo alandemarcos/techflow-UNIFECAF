@@ -69,6 +69,7 @@ function Sidebar() {
 
   return (
     <aside
+      aria-label="Navegação principal"
       className={cn(
         'hidden shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground shadow-sm transition-[width] duration-300 lg:flex',
         collapsed ? 'w-[72px]' : 'w-64',

@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import type { Task } from '@/types/task'
-import type { TaskFormData } from '@/types/task'
+import type { Task, TaskFormData } from '@/types/task'
 import { useTasks } from '@/hooks/useTasks'
 import { useTaskList } from '@/hooks/useTaskList'
 import PageContainer from '@/components/layout/PageContainer'

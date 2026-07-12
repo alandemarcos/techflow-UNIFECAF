@@ -25,7 +25,6 @@ export function useTaskSort() {
 
   return {
     sort,
-    setSort,
     updateSortField,
     updateSortDirection,
     applySort,

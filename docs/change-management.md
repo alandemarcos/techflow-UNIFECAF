@@ -65,7 +65,8 @@ A decisão do cliente baseou-se nos seguintes fatores:
 ### Impacto no cronograma
 
 - **Positivo** — tempo economizado pode ser investido em qualidade e documentação
-- A Sprint 5 foi dedicada à documentação técnica em vez de implementar configurações
+- A Sprint 5 foi dedicada à documentação técnica
+- A Sprint Final concentrou revisão de código, padronização e validação para entrega
 
 ## Resultado
 

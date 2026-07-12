@@ -1,36 +1,12 @@
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
-import type { Task, TaskPriority } from '@/types/task'
-import {
-  AlertTriangle,
-  ArrowDown,
-  Calendar,
-  CheckCircle2,
-  Circle,
-  GripVertical,
-  Loader2,
-  Minus,
-  Pencil,
-  Trash2,
-  User,
-} from 'lucide-react'
+import type { Task } from '@/types/task'
+import { Calendar, GripVertical, Pencil, Trash2, User } from 'lucide-react'
 import TaskPriorityBadge from '@/components/tasks/TaskPriorityBadge'
 import TaskStatusBadge from '@/components/tasks/TaskStatusBadge'
 import { formatDate } from '@/utils/date'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-
-const priorityIcons: Record<TaskPriority, typeof Minus> = {
-  Low: ArrowDown,
-  Medium: Minus,
-  High: AlertTriangle,
-}
-
-const statusIcons = {
-  'To Do': Circle,
-  'In Progress': Loader2,
-  Done: CheckCircle2,
-} as const
 
 interface KanbanCardContentProps {
   task: Task
@@ -45,11 +21,9 @@ function KanbanCardContent({
   onEdit,
   onDelete,
 }: KanbanCardContentProps) {
-  const PriorityIcon = priorityIcons[task.priority]
-  const StatusIcon = statusIcons[task.status]
-
   return (
     <article
+      aria-label={`Tarefa: ${task.title}`}
       className={cn(
         'group relative rounded-xl border bg-card p-3 shadow-sm',
         'transition-all duration-200 ease-out',
@@ -68,25 +42,15 @@ function KanbanCardContent({
 
         <div className="min-w-0 flex-1 space-y-3">
           <div className="flex items-start justify-between gap-2">
-            <div className="flex min-w-0 items-start gap-2">
-              <div
-                className={cn(
-                  'mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg',
-                  'bg-muted/60 text-muted-foreground',
-                )}
-              >
-                <PriorityIcon className="size-3.5" />
-              </div>
-              <div className="min-w-0">
-                <h4 className="line-clamp-1 text-sm font-semibold leading-tight">
-                  {task.title}
-                </h4>
-                {task.description && (
-                  <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
-                    {task.description}
-                  </p>
-                )}
-              </div>
+            <div className="min-w-0">
+              <h4 className="line-clamp-1 text-sm font-semibold leading-tight">
+                {task.title}
+              </h4>
+              {task.description && (
+                <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">
+                  {task.description}
+                </p>
+              )}
             </div>
 
             {!isDragging && (
@@ -133,20 +97,12 @@ function KanbanCardContent({
 
           <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-1">
-              <User className="size-3" />
+              <User className="size-3" aria-hidden />
               <span className="truncate">{task.responsible}</span>
             </span>
             <span className="inline-flex items-center gap-1">
-              <Calendar className="size-3" />
-              {formatDate(task.dueDate)}
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <StatusIcon
-                className={cn(
-                  'size-3',
-                  task.status === 'In Progress' && 'animate-spin',
-                )}
-              />
+              <Calendar className="size-3" aria-hidden />
+              <time dateTime={task.dueDate}>{formatDate(task.dueDate)}</time>
             </span>
           </div>
         </div>

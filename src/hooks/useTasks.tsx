@@ -6,27 +6,20 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import type { Task, TaskFormData, TaskStatus } from '@/types/task'
+import type { Task, TaskFormData, TaskListStats, TaskStatus } from '@/types/task'
 import { INITIAL_TASKS } from '@/data/initial-tasks'
 import {
   createTaskFromForm,
   updateTaskFromForm,
   updateTaskStatus as applyTaskStatus,
 } from '@/utils/task'
+import { computeTaskListStats } from '@/utils/task-list'
 
 /** Estado global de tarefas — fonte única de verdade para CRUD e estatísticas. */
 
-interface TaskStats {
-  total: number
-  inProgress: number
-  completed: number
-  pending: number
-  highPriority: number
-}
-
 interface TasksContextValue {
   tasks: Task[]
-  stats: TaskStats
+  stats: TaskListStats
   addTask: (data: TaskFormData) => void
   updateTask: (id: string, data: TaskFormData) => void
   updateTaskStatus: (id: string, status: TaskStatus) => void
@@ -36,16 +29,6 @@ interface TasksContextValue {
 
 const TasksContext = createContext<TasksContextValue | null>(null)
 
-function computeStats(tasks: Task[]): TaskStats {
-  return {
-    total: tasks.length,
-    inProgress: tasks.filter((task) => task.status === 'In Progress').length,
-    completed: tasks.filter((task) => task.status === 'Done').length,
-    pending: tasks.filter((task) => task.status === 'To Do').length,
-    highPriority: tasks.filter((task) => task.priority === 'High').length,
-  }
-}
-
 interface TasksProviderProps {
   children: ReactNode
 }
@@ -53,7 +36,7 @@ interface TasksProviderProps {
 export function TasksProvider({ children }: TasksProviderProps) {
   const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS)
 
-  const stats = useMemo(() => computeStats(tasks), [tasks])
+  const stats = useMemo(() => computeTaskListStats(tasks), [tasks])
 
   const addTask = useCallback((data: TaskFormData) => {
     setTasks((current) => [...current, createTaskFromForm(data)])

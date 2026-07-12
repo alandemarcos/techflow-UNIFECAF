@@ -14,7 +14,7 @@ function PageContainer({
   description,
 }: PageContainerProps) {
   return (
-    <div className={cn('flex flex-1 flex-col gap-6 p-6', className)}>
+    <div className={cn('flex flex-1 flex-col gap-4 p-4 sm:gap-6 sm:p-6', className)}>
       {(title || description) && (
         <header className="space-y-1">
           {title && (
