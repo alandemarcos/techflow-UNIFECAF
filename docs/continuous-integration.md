@@ -23,7 +23,7 @@ A pipeline **TaskFlow CI Pipeline** é disparada automaticamente nos seguintes e
 flowchart LR
     A[Push / PR] --> B[Checkout]
     B --> C[Node.js LTS]
-    C --> D[npm ci]
+    C --> D[npm install]
     D --> E[Type Check]
     E --> F[Lint]
     F --> G[Testes]
@@ -39,7 +39,7 @@ Cada etapa depende da anterior. Se qualquer etapa falhar, o workflow é interrom
 |---|-------|---------|-----------|
 | 1 | Checkout | — | Clona o repositório no runner |
 | 2 | Node.js | — | Instala Node.js 24 nos runners do GitHub Actions |
-| 3 | Dependências | `npm install --no-audit --no-fund` | Instala dependências a partir do `package-lock.json` |
+| 3 | Dependências | `npm install --no-audit --no-fund` | Instala dependências a partir do `package-lock.json` (evita falhas de `npm ci` com lockfile gerado no Windows) |
 | 4 | Type Check | `npm run type-check` | Valida tipos TypeScript sem emitir arquivos |
 | 5 | Lint | `npm run lint` | Analisa o código com Oxlint |
 | 6 | Testes | `npm test` | Executa a suíte de testes com Vitest |
