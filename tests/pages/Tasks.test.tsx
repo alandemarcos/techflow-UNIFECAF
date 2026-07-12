@@ -128,10 +128,12 @@ describe('Tasks - Filtros e pesquisa', () => {
 
     const prioritySelect = screen.getAllByRole('combobox')[1]
     await user.click(prioritySelect)
-    await user.click(screen.getByRole('option', { name: 'High' }))
+    await user.click(await screen.findByRole('option', { name: 'High' }))
 
-    getTableDataRows().forEach((row) => {
-      expect(within(row).getByText('High')).toBeInTheDocument()
+    await waitFor(() => {
+      getTableDataRows().forEach((row) => {
+        expect(within(row).getByText('High')).toBeInTheDocument()
+      })
     })
   })
 
@@ -141,10 +143,12 @@ describe('Tasks - Filtros e pesquisa', () => {
 
     const statusSelect = screen.getAllByRole('combobox')[0]
     await user.click(statusSelect)
-    await user.click(screen.getByRole('option', { name: 'Done' }))
+    await user.click(await screen.findByRole('option', { name: 'Done' }))
 
-    expect(screen.getByText(/configurar ambiente/i)).toBeInTheDocument()
-    expect(screen.queryByText(/definir backlog/i)).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText(/configurar ambiente/i)).toBeInTheDocument()
+      expect(screen.queryByText(/definir backlog/i)).not.toBeInTheDocument()
+    })
   })
 
   it('filtra por responsável', async () => {
@@ -153,13 +157,15 @@ describe('Tasks - Filtros e pesquisa', () => {
 
     const responsibleSelect = screen.getAllByRole('combobox')[2]
     await user.click(responsibleSelect)
-    await user.click(screen.getByRole('option', { name: 'Ana Silva' }))
+    await user.click(await screen.findByRole('option', { name: 'Ana Silva' }))
 
-    expect(screen.getByText(/definir backlog/i)).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText(/definir backlog/i)).toBeInTheDocument()
 
-    getTableDataRows().forEach((row) => {
-      expect(within(row).getByText('Ana Silva')).toBeInTheDocument()
-      expect(within(row).queryByText('Carlos Mendes')).not.toBeInTheDocument()
+      getTableDataRows().forEach((row) => {
+        expect(within(row).getByText('Ana Silva')).toBeInTheDocument()
+        expect(within(row).queryByText('Carlos Mendes')).not.toBeInTheDocument()
+      })
     })
   })
 
@@ -169,16 +175,18 @@ describe('Tasks - Filtros e pesquisa', () => {
 
     const sortSelect = screen.getAllByRole('combobox')[3]
     await user.click(sortSelect)
-    await user.click(screen.getByRole('option', { name: 'Título' }))
+    await user.click(await screen.findByRole('option', { name: 'Título' }))
 
-    const titles = getTableDataRows().map(
-      (row) => within(row).getAllByRole('cell')[0].textContent?.trim(),
-    )
+    await waitFor(() => {
+      const titles = getTableDataRows().map(
+        (row) => within(row).getAllByRole('cell')[0].textContent?.trim(),
+      )
 
-    const sorted = [...titles].sort((a, b) =>
-      (a ?? '').localeCompare(b ?? '', 'pt-BR'),
-    )
-    expect(titles).toEqual(sorted)
+      const sorted = [...titles].sort((a, b) =>
+        (a ?? '').localeCompare(b ?? '', 'pt-BR'),
+      )
+      expect(titles).toEqual(sorted)
+    })
   })
 })
 
