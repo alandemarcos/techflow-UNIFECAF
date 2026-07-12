@@ -2,6 +2,8 @@
 
 Este documento descreve a pipeline de Integração Contínua (CI) do TaskFlow, implementada com GitHub Actions.
 
+> Documentação relacionada: [testing.md](testing.md) · [development-guide.md](development-guide.md) · [architecture.md](architecture.md)
+
 ## Objetivo
 
 Garantir que toda alteração enviada ao repositório passe por validações automáticas de qualidade antes de ser integrada à branch `main`. A pipeline detecta erros de tipagem, problemas de lint, falhas em testes e quebras de build o mais cedo possível.

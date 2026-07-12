@@ -6,6 +6,7 @@ import { useTaskFilters } from '@/hooks/useTaskFilters'
 import { useTaskSearch } from '@/hooks/useTaskSearch'
 import { useTaskSort } from '@/hooks/useTaskSort'
 
+/** Orquestra busca, filtros, ordenação e paginação da listagem de tarefas. */
 export function useTaskList(tasks: Task[]) {
   const search = useTaskSearch()
   const filters = useTaskFilters(tasks)

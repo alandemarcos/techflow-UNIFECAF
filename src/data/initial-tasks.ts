@@ -1,5 +1,6 @@
 import type { Task } from '@/types/task'
 
+/** Dados iniciais para demonstração do MVP (persistência em memória). */
 export const INITIAL_TASKS: Task[] = [
   {
     id: 'task-1',

@@ -2,88 +2,90 @@
 
 [![Build](https://github.com/alandemarcos/techflow-UNIFECAF/actions/workflows/ci.yml/badge.svg)](https://github.com/alandemarcos/techflow-UNIFECAF/actions/workflows/ci.yml)
 
-Sistema Web de Gerenciamento de Tarefas
+Sistema web de gerenciamento de tarefas desenvolvido para ambientes corporativos e acadêmicos. O TaskFlow organiza o trabalho em fluxos visuais, permitindo acompanhar atividades de forma clara e estruturada com base na metodologia Kanban.
 
 ## Objetivo
 
-Desenvolver um sistema para gerenciamento de tarefas baseado em metodologias ágeis.
+Desenvolver uma aplicação moderna para gestão de tarefas que demonstre boas práticas de engenharia de software: arquitetura em camadas, componentização, testes automatizados, integração contínua e documentação técnica profissional.
 
-O TaskFlow organiza o trabalho em fluxos visuais, permitindo acompanhar o progresso das atividades de forma clara e estruturada, seguindo práticas de desenvolvimento iterativo e entrega contínua.
+O projeto prioriza entregas incrementais, qualidade de código e adaptação de escopo conforme as necessidades do cliente — princípios fundamentais das metodologias ágeis.
 
-## Tecnologias
+## Principais funcionalidades
 
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- shadcn/ui
-- Lucide React
-- React Router DOM
-- GitHub Actions
-- Vitest
+| Funcionalidade | Descrição |
+|----------------|-----------|
+| **Dashboard** | Visão geral com estatísticas de tarefas (total, pendentes, em andamento, concluídas) |
+| **Lista de Tarefas** | Tabela paginada com busca, filtros, ordenação e CRUD completo |
+| **Kanban** | Quadro visual com três colunas e drag-and-drop para alteração de status |
+| **Formulário de Tarefas** | Criação e edição com validação de campos obrigatórios |
+| **Tema claro/escuro** | Alternância de tema com persistência em `localStorage` |
+| **Layout responsivo** | Sidebar colapsável, menu mobile e navegação adaptável |
 
-## Estrutura
+## Tecnologias utilizadas
+
+| Categoria | Tecnologia |
+|-----------|------------|
+| Framework | React 19 |
+| Linguagem | TypeScript 6 |
+| Build | Vite 8 |
+| Estilização | Tailwind CSS 4 |
+| Componentes UI | shadcn/ui (Base UI) |
+| Roteamento | React Router DOM 7 |
+| Drag and Drop | @dnd-kit |
+| Ícones | Lucide React |
+| Testes | Vitest + Testing Library |
+| Lint | Oxlint |
+| CI/CD | GitHub Actions |
+
+## Arquitetura do projeto
+
+O TaskFlow segue uma arquitetura em camadas com separação clara de responsabilidades:
+
+```
+Pages → Components → Hooks / Contexts → Utils → Data
+```
+
+- **Pages** — composição de telas e orquestração de componentes
+- **Components** — interface reutilizável (layout, tarefas, kanban, dashboard)
+- **Hooks / Contexts** — estado e lógica reativa (tarefas, tema, sidebar)
+- **Utils** — funções puras de negócio e validação
+- **Data** — dados iniciais em memória (MVP sem backend)
+
+Para detalhes completos, consulte [docs/architecture.md](docs/architecture.md).
+
+## Estrutura de diretórios
 
 ```
 src/
-├── assets/       # Arquivos estáticos (imagens, ícones, fontes)
-├── components/   # Componentes reutilizáveis da interface
-│   └── layout/   # Componentes estruturais (Sidebar, Topbar, etc.)
-├── hooks/        # Hooks customizados do React
-├── lib/          # Utilitários de bibliotecas (ex.: shadcn/ui)
-├── pages/        # Páginas da aplicação (rotas)
-├── services/     # Camada de serviços e integrações com APIs
-├── types/        # Definições de tipos TypeScript
-└── utils/        # Funções utilitárias compartilhadas
+├── assets/          # Recursos estáticos
+├── components/      # Componentes React reutilizáveis
+│   ├── dashboard/   # Painel e estatísticas
+│   ├── kanban/      # Quadro Kanban e drag-and-drop
+│   ├── layout/      # Sidebar, Topbar, AppLayout
+│   ├── tasks/       # CRUD, tabela, filtros e formulários
+│   └── ui/          # Componentes shadcn/ui
+├── constants/       # Constantes da aplicação (navegação)
+├── contexts/        # Providers de tema e sidebar
+├── data/            # Dados iniciais (seed)
+├── hooks/           # Hooks customizados
+├── lib/             # Utilitários de bibliotecas (cn)
+├── pages/           # Páginas vinculadas às rotas
+├── services/        # Camada reservada para integrações futuras
+├── types/           # Tipos e interfaces TypeScript
+└── utils/           # Funções puras (validação, tarefas, datas)
+
+tests/               # Suíte de testes automatizados
+docs/                # Documentação técnica
+.github/workflows/   # Pipeline de Integração Contínua
 ```
-
-### Pastas
-
-| Pasta | Descrição |
-|-------|-----------|
-| `assets/` | Recursos estáticos utilizados na interface |
-| `components/` | Componentes React reutilizáveis |
-| `components/layout/` | Layout base da aplicação (Sidebar, Topbar, PageContainer, Logo) |
-| `hooks/` | Lógica reutilizável encapsulada em hooks |
-| `lib/` | Configurações e helpers de bibliotecas externas |
-| `pages/` | Páginas vinculadas às rotas do React Router |
-| `services/` | Comunicação com APIs e regras de acesso a dados |
-| `types/` | Interfaces e tipos compartilhados |
-| `utils/` | Funções auxiliares puras |
-
-## Metodologia
-
-Kanban
-
-O projeto adota a metodologia Kanban para visualização e gestão do fluxo de trabalho, priorizando entregas incrementais e limitação de trabalho em progresso (WIP).
-
-## Fluxo
-
-To Do → In Progress → Done
-
-| Coluna | Descrição |
-|--------|-----------|
-| **To Do** | Tarefas pendentes, ainda não iniciadas |
-| **In Progress** | Tarefas em andamento |
-| **Done** | Tarefas concluídas |
-
-## Rotas
-
-| Rota | Página |
-|------|--------|
-| `/` | Dashboard |
-| `/tasks` | Tarefas |
-
-## Mudança de Escopo
-
-Durante a fase de homologação do sistema, o cliente optou por remover a página **Configurações** para simplificar a primeira versão (MVP) do TaskFlow.
-
-Essa decisão permitiu concentrar os esforços nas funcionalidades essenciais de gerenciamento de tarefas, seguindo os princípios das metodologias ágeis, nas quais o escopo pode ser adaptado conforme as necessidades do cliente.
 
 ## Como executar
 
 ```bash
+# Instalar dependências
 npm install
+
+# Iniciar servidor de desenvolvimento
 npm run dev
 ```
 
@@ -92,28 +94,109 @@ A aplicação estará disponível em `http://localhost:5173`.
 ### Outros comandos
 
 ```bash
-npm run build       # Gera build de produção
-npm run preview     # Visualiza o build localmente
-npm run lint        # Executa o linter
-npm run type-check  # Verifica tipos TypeScript
-npm test            # Executa os testes
-npm run coverage    # Executa testes com cobertura
+npm run build        # Gera build de produção
+npm run preview      # Visualiza o build localmente
+npm run type-check   # Verifica tipos TypeScript
 ```
 
-## Integração Contínua
+## Como rodar os testes
 
-O TaskFlow utiliza [GitHub Actions](https://docs.github.com/pt/actions) para automatizar a validação de qualidade do código. A cada **push** ou **pull request** direcionado à branch `main`, os testes e verificações são executados automaticamente.
+```bash
+# Executar todos os testes uma vez
+npm test
 
-A pipeline **TaskFlow CI Pipeline** realiza as seguintes etapas em sequência:
+# Executar testes em modo watch (desenvolvimento)
+npm run test:watch
+```
+
+A suíte contém **139 testes** distribuídos em componentes, hooks, utilitários e páginas. Para detalhes da estratégia, consulte [docs/testing.md](docs/testing.md).
+
+## Como executar o lint
+
+```bash
+npm run lint
+```
+
+O projeto utiliza **Oxlint** para análise estática de código. A mesma verificação é executada automaticamente na pipeline de CI.
+
+## Como executar a cobertura de testes
+
+```bash
+npm run coverage
+```
+
+Gera relatório de cobertura com os seguintes thresholds mínimos:
+
+| Métrica | Threshold |
+|---------|-----------|
+| Statements | 80% |
+| Branches | 70% |
+| Functions | 80% |
+| Lines | 80% |
+
+O relatório HTML é gerado em `coverage/index.html` (pasta ignorada pelo Git).
+
+## Como funciona a Integração Contínua
+
+A cada **push** ou **pull request** na branch `main`, a pipeline **TaskFlow CI Pipeline** executa automaticamente:
 
 1. Verificação de tipos TypeScript
-2. Análise de lint
-3. Execução de testes e cobertura
-4. Build de produção
+2. Análise de lint (Oxlint)
+3. Execução de testes
+4. Relatório de cobertura
+5. Build de produção
 
-Se qualquer etapa falhar, o pipeline é interrompido imediatamente, sinalizando que a alteração precisa ser corrigida antes da integração.
+Se qualquer etapa falhar, o pipeline é interrompido imediatamente (**fail fast**).
 
-Para mais detalhes, consulte a [documentação de CI](docs/continuous-integration.md).
+Para documentação completa, consulte [docs/continuous-integration.md](docs/continuous-integration.md).
+
+## Metodologia Kanban
+
+O TaskFlow adota a metodologia **Kanban** para visualização e gestão do fluxo de trabalho:
+
+```
+To Do → In Progress → Done
+```
+
+| Coluna | Descrição |
+|--------|-----------|
+| **To Do** | Tarefas pendentes, ainda não iniciadas |
+| **In Progress** | Tarefas em andamento |
+| **Done** | Tarefas concluídas |
+
+O quadro Kanban permite arrastar cards entre colunas para atualizar o status. Para detalhes da implementação, consulte [docs/kanban.md](docs/kanban.md).
+
+## Fluxo de desenvolvimento por Sprints
+
+O projeto foi desenvolvido de forma iterativa, com entregas incrementais organizadas em sprints:
+
+| Sprint | Foco principal |
+|--------|----------------|
+| **Sprint 1** | Estrutura do projeto, layout base, roteamento e navegação |
+| **Sprint 2** | CRUD de tarefas, formulário com validação e listagem |
+| **Sprint 3** | Quadro Kanban com drag-and-drop, filtros e busca |
+| **Sprint 4** | Testes automatizados, cobertura e Integração Contínua |
+| **Homologação** | Revisão de escopo com o cliente |
+| **Sprint 5** | Documentação técnica e preparação para entrega |
+
+O acompanhamento do backlog foi realizado via **GitHub Projects**, com cards organizados por colunas Kanban. Detalhes em [docs/kanban.md](docs/kanban.md).
+
+## Mudança de escopo realizada
+
+Durante a fase de homologação, o cliente optou por **remover a página Configurações** para simplificar o MVP. Essa decisão permitiu concentrar os esforços nas funcionalidades essenciais de gerenciamento de tarefas.
+
+A documentação completa da mudança está em [docs/change-management.md](docs/change-management.md).
+
+## Documentação técnica
+
+| Documento | Conteúdo |
+|-----------|----------|
+| [architecture.md](docs/architecture.md) | Arquitetura, camadas e fluxo da aplicação |
+| [kanban.md](docs/kanban.md) | Metodologia Kanban e organização por sprints |
+| [testing.md](docs/testing.md) | Estratégia e ferramentas de testes |
+| [change-management.md](docs/change-management.md) | Gestão de mudanças de escopo |
+| [development-guide.md](docs/development-guide.md) | Guia de contribuição e padrões de código |
+| [continuous-integration.md](docs/continuous-integration.md) | Pipeline CI com GitHub Actions |
 
 ## Licença
 

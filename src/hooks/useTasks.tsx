@@ -14,6 +14,8 @@ import {
   updateTaskStatus as applyTaskStatus,
 } from '@/utils/task'
 
+/** Estado global de tarefas — fonte única de verdade para CRUD e estatísticas. */
+
 interface TaskStats {
   total: number
   inProgress: number

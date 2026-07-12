@@ -58,6 +58,7 @@ function groupTasksByStatus(tasks: Task[]): KanbanColumnsMap {
   }, {} as KanbanColumnsMap)
 }
 
+/** Resolve o status alvo ao soltar um card sobre uma coluna ou outro card. */
 function resolveTargetStatus(
   overId: string,
   tasks: Task[],
