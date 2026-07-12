@@ -1,5 +1,7 @@
 # TaskFlow
 
+[![Build](https://github.com/alandemarcos/techflow-UNIFECAF/actions/workflows/ci.yml/badge.svg)](https://github.com/alandemarcos/techflow-UNIFECAF/actions/workflows/ci.yml)
+
 Sistema Web de Gerenciamento de Tarefas
 
 ## Objetivo
@@ -85,10 +87,28 @@ A aplicação estará disponível em `http://localhost:5173`.
 ### Outros comandos
 
 ```bash
-npm run build    # Gera build de produção
-npm run preview  # Visualiza o build localmente
-npm run lint     # Executa o linter
+npm run build       # Gera build de produção
+npm run preview     # Visualiza o build localmente
+npm run lint        # Executa o linter
+npm run type-check  # Verifica tipos TypeScript
+npm test            # Executa os testes
+npm run coverage    # Executa testes com cobertura
 ```
+
+## Integração Contínua
+
+O TaskFlow utiliza [GitHub Actions](https://docs.github.com/pt/actions) para automatizar a validação de qualidade do código. A cada **push** ou **pull request** direcionado à branch `main`, os testes e verificações são executados automaticamente.
+
+A pipeline **TaskFlow CI Pipeline** realiza as seguintes etapas em sequência:
+
+1. Verificação de tipos TypeScript
+2. Análise de lint
+3. Execução de testes e cobertura
+4. Build de produção
+
+Se qualquer etapa falhar, o pipeline é interrompido imediatamente, sinalizando que a alteração precisa ser corrigida antes da integração.
+
+Para mais detalhes, consulte a [documentação de CI](docs/continuous-integration.md).
 
 ## Licença
 
