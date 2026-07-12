@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import AppLayout from '@/components/layout/AppLayout'
 import Dashboard from '@/pages/Dashboard'
 import NotFound from '@/pages/NotFound'
-import Settings from '@/pages/Settings'
 import Tasks from '@/pages/Tasks'
 
 const router = createBrowserRouter([
@@ -17,10 +16,6 @@ const router = createBrowserRouter([
       {
         path: 'tasks',
         element: <Tasks />,
-      },
-      {
-        path: 'settings',
-        element: <Settings />,
       },
       {
         path: '*',

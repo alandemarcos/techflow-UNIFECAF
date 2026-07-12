@@ -73,7 +73,12 @@ To Do → In Progress → Done
 |------|--------|
 | `/` | Dashboard |
 | `/tasks` | Tarefas |
-| `/settings` | Configurações |
+
+## Mudança de Escopo
+
+Durante a fase de homologação do sistema, o cliente optou por remover a página **Configurações** para simplificar a primeira versão (MVP) do TaskFlow.
+
+Essa decisão permitiu concentrar os esforços nas funcionalidades essenciais de gerenciamento de tarefas, seguindo os princípios das metodologias ágeis, nas quais o escopo pode ser adaptado conforme as necessidades do cliente.
 
 ## Como executar
 

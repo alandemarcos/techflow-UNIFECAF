@@ -1,4 +1,4 @@
-import { LayoutDashboard, ListTodo, Settings, type LucideIcon } from 'lucide-react'
+import { LayoutDashboard, ListTodo, type LucideIcon } from 'lucide-react'
 
 export interface NavItem {
   label: string
@@ -17,15 +17,9 @@ export const NAV_ITEMS: NavItem[] = [
     to: '/tasks',
     icon: ListTodo,
   },
-  {
-    label: 'Configurações',
-    to: '/settings',
-    icon: Settings,
-  },
 ]
 
 export const PAGE_TITLES: Record<string, string> = {
   '/': 'Dashboard',
   '/tasks': 'Lista de Tarefas',
-  '/settings': 'Configurações',
 }
