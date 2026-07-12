@@ -49,7 +49,7 @@ Cada etapa depende da anterior. Se qualquer etapa falhar, o workflow é interrom
 ## Ambiente
 
 - **Sistema operacional:** Ubuntu Latest
-- **Node.js:** LTS (versão estável mais recente)
+- **Node.js:** 22 LTS (versão estável com suporte de longo prazo)
 - **Gerenciador de pacotes:** npm com cache habilitado
 
 ## O que é o GitHub Actions?

@@ -20,8 +20,9 @@ jobs:
       - name: Instalar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 22
           cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: Instalar dependências
         run: npm ci
