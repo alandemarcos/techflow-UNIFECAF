@@ -38,8 +38,8 @@ Cada etapa depende da anterior. Se qualquer etapa falhar, o workflow é interrom
 | # | Etapa | Comando | Descrição |
 |---|-------|---------|-----------|
 | 1 | Checkout | — | Clona o repositório no runner |
-| 2 | Node.js | — | Instala a versão LTS do Node.js com cache do npm |
-| 3 | Dependências | `npm ci` | Instala dependências de forma determinística a partir do `package-lock.json` |
+| 2 | Node.js | — | Instala Node.js 24 nos runners do GitHub Actions |
+| 3 | Dependências | `npm install --no-audit --no-fund` | Instala dependências a partir do `package-lock.json` |
 | 4 | Type Check | `npm run type-check` | Valida tipos TypeScript sem emitir arquivos |
 | 5 | Lint | `npm run lint` | Analisa o código com Oxlint |
 | 6 | Testes | `npm test` | Executa a suíte de testes com Vitest |
@@ -60,12 +60,11 @@ No TaskFlow, o GitHub Actions atua como guardião da qualidade: cada contribuiç
 
 ## Boas práticas adotadas
 
-1. **Instalação determinística** — `npm ci` em vez de `npm install` para builds reproduzíveis.
-2. **Cache de dependências** — reduz o tempo de execução reutilizando pacotes entre runs.
-3. **Fail fast** — etapas sequenciais interrompem o pipeline na primeira falha.
-4. **Node LTS** — usa a versão estável suportada a longo prazo.
-5. **Validação completa** — tipagem, lint, testes, cobertura e build em um único workflow.
-6. **Escopo limitado à `main`** — evita execuções desnecessárias em branches de experimentação.
+1. **Instalação reproduzível** — `package-lock.json` versionado; `npm install` na CI respeita o lockfile.
+2. **Fail fast** — etapas sequenciais interrompem o pipeline na primeira falha.
+3. **Node 24** — compatível com os runners atuais do GitHub Actions.
+4. **Validação completa** — tipagem, lint, testes, cobertura e build em um único workflow.
+5. **Escopo limitado à `main`** — evita execuções desnecessárias em branches de experimentação.
 
 ## Executar localmente
 

@@ -23,7 +23,7 @@ jobs:
           node-version: 24
 
       - name: Instalar dependências
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: TypeScript Check
         run: npm run type-check
